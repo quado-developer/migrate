@@ -53,7 +53,6 @@ Commands:
   goto V       Migrate to version V
   up [N]       Apply all or N up migrations
   down [N]     Apply all or N down migrations
-  drop         Drop everything inside database
   force V      Set version V but don't run migration (ignores dirty state)
   version      Print current migration version
 
@@ -213,17 +212,6 @@ Database drivers: `+strings.Join(database.List(), ", ")+"\n")
 		}
 
 		downCmd(migrater, num)
-
-		if log.verbose {
-			log.Println("Finished after", time.Since(startTime))
-		}
-
-	case "drop":
-		if migraterErr != nil {
-			log.fatalErr(migraterErr)
-		}
-
-		dropCmd(migrater)
 
 		if log.verbose {
 			log.Println("Finished after", time.Since(startTime))
